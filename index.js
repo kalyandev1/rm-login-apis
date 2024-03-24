@@ -7,7 +7,7 @@ const server = require('./src/frameworks_drivers/server/server')
 const sequelize = require('./src/frameworks_drivers/database/sequelize')
 const cors = require("cors");
 
-const port = process.env.PORT || 5555
+const port = process.env.PORT || 3001
 
 let myserver = http.Server(server);
 
