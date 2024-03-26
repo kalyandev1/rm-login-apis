@@ -89,12 +89,11 @@ router.post('/validateotp', async (req, res) => {
     if (result.length > 0) {
 
     const givenTimestamp = result[0].created_date;
-console.log('givenTimestamp')
+   console.log('givenTimestamp')
  
     var currentTime = moment();
     
     var differenceInMinutes = currentTime.diff(givenTimestamp, 'minutes');
-
 
     if (differenceInMinutes <= 10) {
 
@@ -104,12 +103,12 @@ console.log('givenTimestamp')
             service: 'gmail',
             secure: false,
             auth: {
-                user: 'vamshijustin25@gmail.com',
-                pass: 'Vadloori@25',
+                user: 'no-reply@evaidya.com',
+                    pass: 'ehealthaccess',
             },
         });
         transporter.sendMail({
-            from: 'vamshijustin25@gmail.com',
+            from: 'no-reply@evaidya.com',
             to: email, 
             cc: 'vamshijustin25@gmail.com',
             subject: `Hello this is testing purpose mail`, 
