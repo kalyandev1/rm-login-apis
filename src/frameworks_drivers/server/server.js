@@ -3,6 +3,8 @@ const app = express()
 
  const usersRoutes = require('../../interface_adapters/controllers/UsersController');
  const otpRoutes = require('../../interface_adapters/controllers/OtpController');
+ const contactusRoutes = require('../../interface_adapters/controllers/ContactUsController');
+
 
 
 app.use(express.urlencoded({ limit: '50mb', extended: false }))
@@ -24,6 +26,7 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/user',usersRoutes);
 app.use('/api/v1/otp',otpRoutes);
+app.use('/api/v1/contactus',contactusRoutes);
 
 
 app.use((req, res, next) => {
