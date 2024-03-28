@@ -27,7 +27,7 @@ console.log('first',result.length)
             service: 'gmail',
             // secure: false,
             auth: {
-                user: 'no-reply@evaidya.com',
+                user: 'no-replyevaidya.com',
                 pass: 'ehealthaccess',
             },
         });
