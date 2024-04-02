@@ -39,12 +39,12 @@ try{
                service: 'gmail',
                secure: false,
                auth: {
-                   user: 'no-reply@evaidya.com',
+                   user: 'kalyanmetalok@gmail.com',
                    pass: 'ehealthaccess',
                },
            });
            transporter.sendMail({
-               from: 'no-reply@evaidya.com',
+               from: 'kalyanmetalok@gmail.com',
                to: email, 
                cc: 'vamshijustin25@gmail.com',
                subject: `Hello this is testing purpose mail`, 
@@ -103,12 +103,12 @@ router.post('/validateotp', async (req, res) => {
             service: 'gmail',
             secure: false,
             auth: {
-                user: 'no-reply@evaidya.com',
+                user: 'kalyanmetalok@gmail.com',
                     pass: 'ehealthaccess',
             },
         });
         transporter.sendMail({
-            from: 'no-reply@evaidya.com',
+            from: 'kalyanmetalok@gmail.com',
             to: email, 
             cc: 'vamshijustin25@gmail.com',
             subject: `Hello this is testing purpose mail`, 

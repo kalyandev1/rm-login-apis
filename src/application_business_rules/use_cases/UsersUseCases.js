@@ -9,4 +9,8 @@ module.exports = class {
         return Repository.email(entity)
 
     }
+    signup(Entity, Repository) { 
+        return Repository.signupdata(Entity)
+    }
+    
 }

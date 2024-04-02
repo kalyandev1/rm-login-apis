@@ -9,5 +9,7 @@ module.exports = class{
         return this.repository.email(entity)
 
     }
-   
+    signupdata(Entity){
+        return this.repository.signupdata(Entity)
+    }
 }

@@ -41,12 +41,12 @@ router.post('/requestotp', async (req, res) => {
                    service: 'gmail',
                    secure: false,
                    auth: {
-                    user: 'no-reply@evaidya.com',
+                    user: 'kalyanmetalok@gmail.com',
                     pass: 'ehealthaccess',
                    },
                });
                transporter.sendMail({
-                   from: 'no-reply@evaidya.com',
+                   from: 'kalyanmetalok@gmail.com',
                    to: email, 
                    cc: 'kalyanwd25@gmail.com',
                    subject: `Hello this is testing purpose mail`, 
@@ -101,12 +101,12 @@ router.get('/userotplogin/:otp', async (req, res) => {
                 service: 'gmail',
                 secure: false,
                 auth: {
-                    user: 'no-reply@evaidya.com',
+                    user: 'kalyanmetalok@gmail.com',
                     pass: 'ehealthaccess',
                 },
             });
             transporter.sendMail({
-                from: 'no-reply@evaidya.com',
+                from: 'kalyanmetalok@gmail.com',
                 to: result[0].email, 
                 cc: 'kalyanwd25@gmail.com',
                 subject: `Hello this is testing purpose mail`, 
@@ -155,5 +155,95 @@ router.get('/userotplogin/:otp', async (req, res) => {
 }
 })
 
+router.post('/signup', async (req, res) => {
 
+
+    const { name, mobile, email,password } = req.body
+    var dt = moment().format()
+
+    try{
+
+        // const transporter = nodemailer.createTransport({
+            
+        //         host: "smtp.gmail.com",
+        //         port: 587,
+        //         secure: false,
+        //         auth: {
+        //             user: 'kalyanmetalok@gmail.com',
+        //             pass: 'mkmvhzrhyiofifoa'
+        //         }
+            
+        // });
+        // transporter.sendMail({
+        //     from: 'kalyanmetalok@gmail.com',
+        //     to: email, 
+        //     cc: 'vamshijustin25@gmail.com',
+        //     subject: `Hello this is testing purpose mail`, 
+        //     text: "Your Registration successfully Completed..!"
+        // }).then(result => {
+           
+        // }).catch(err => {
+        //     console.log(err);
+        //     return res.status(400).json({
+        //         code: "error",
+        //         message: err
+        //     })
+        // })
+    
+
+        var checkemail = await usersUseCases.checkemail({email}, usersRepository)
+        if (checkemail.length > 0) {
+        res.status(202).json({ status: 202, message: 'Your email already exists'
+    })
+    }else{
+
+        const result = await usersUseCases.signup({name, mobile, email,password,created_date:dt}, usersRepository)
+console.log('first',_.isObject(result))
+        if (_.isObject(result)){
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            auth: {
+                user: 'kalyanmetalok@gmail.com',
+                pass: 'mkmvhzrhyiofifoa'
+            }
+           });
+           transporter.sendMail({
+               from: 'kalyanmetalok@gmail.com',
+               to: email, 
+               cc: '',
+               subject: `Hello this is testing purpose mail`, 
+               text: "Dear User, Your login credentials Uesr Name : "+email+" and You'r Password : " + password + "  "
+           }).then(result => {
+              
+           }).catch(err => {
+               console.log(err);
+               return res.status(400).json({
+                   code: "error",
+                   message: err
+               })
+           })
+         res.status(200).json({ status:200, message: 'Your Registration successfully Completed..!'})
+
+          }  else {
+               
+
+               
+           return res.status(203).json({ status: 203, message: 'something went wrong..!'})
+               
+               }
+    }
+     
+
+
+
+} catch (err) {
+    res.status(500).json({
+        status: "500",
+        message: "Internal Server Error",
+        error: err.message 
+    });
+}
+})
 module.exports = router

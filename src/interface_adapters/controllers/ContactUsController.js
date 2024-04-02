@@ -34,7 +34,7 @@ const contactUseCases = new ContactUsUseCases()
 //             },
 //         });
 //         transporter.sendMail({
-//             from: 'no-reply@evaidya.com',
+//             from: 'kalyanmetalok@gmail.com',
 //             to: email, 
 //             cc: 'metaloksolutin@gmail.com, kalyanwd25@gmail.com',
 //             subject: `Hello t'his is testing purpose mail`, 
@@ -179,8 +179,8 @@ var transporter = nodemailer.createTransport(
 );
 var options = {
     from: 'kalyanmetalok@gmail.com',
-    // to: 'mihir@metalok.io, bhavya@metalok.io, kalyan@metalok.io',
-    to: 'kalyan@metalok.io,priyanka@metalok.io',
+    to: 'mihir@metalok.io, kalyan@metalok.io',
+    // to: 'kalyan@metalok.io',
     subject: "Hello this is Testing purpose mail",
     html: `<h2>Hello,</h2>
     <h2>A New form has been submitted on your website. Details below.</h1>
