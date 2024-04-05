@@ -81,79 +81,79 @@ router.post('/requestotp', async (req, res) => {
 }
 })
 
-router.get('/userotplogin/:otp', async (req, res) => {
-    const {otp} = req.params
+// router.get('/userotplogin/:otp', async (req, res) => {
+//     const {otp} = req.params
 
-    try{
-        const result = await otpUseCases.otpcheck(otp, otpRepository)
+//     try{
+//         const result = await otpUseCases.otpcheck(otp, otpRepository)
   
-        if (result.length > 0) {
+//         if (result.length > 0) {
     
-        const givenTimestamp = result[0].created_date;
+//         const givenTimestamp = result[0].created_date;
      
-        const currentTime = moment();
+//         const currentTime = moment();
         
-        const differenceInMinutes = currentTime.diff(givenTimestamp, 'minutes');
+//         const differenceInMinutes = currentTime.diff(givenTimestamp, 'minutes');
     
-        if (differenceInMinutes <= 10) {
+//         if (differenceInMinutes <= 10) {
         
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                secure: false,
-                auth: {
-                    user: 'kalyanmetalok@gmail.com',
-                    pass: 'ehealthaccess',
-                },
-            });
-            transporter.sendMail({
-                from: 'kalyanmetalok@gmail.com',
-                to: result[0].email, 
-                cc: 'kalyanwd25@gmail.com',
-                subject: `Hello this is testing purpose mail`, 
-                text: "You are successfully logged in..!"
-            }).then(result => {
-            }).catch(err => {
-                console.log(err);
-                return res.status(400).json({
-                    code: "error",
-                    message: err
-                })
-            })
+//             const transporter = nodemailer.createTransport({
+//                 service: 'gmail',
+//                 secure: false,
+//                 auth: {
+//                     user: 'kalyanmetalok@gmail.com',
+//                     pass: 'ehealthaccess',
+//                 },
+//             });
+//             transporter.sendMail({
+//                 from: 'kalyanmetalok@gmail.com',
+//                 to: result[0].email, 
+//                 cc: 'kalyanwd25@gmail.com',
+//                 subject: `Hello this is testing purpose mail`, 
+//                 text: "You are successfully logged in..!"
+//             }).then(result => {
+//             }).catch(err => {
+//                 console.log(err);
+//                 return res.status(400).json({
+//                     code: "error",
+//                     message: err
+//                 })
+//             })
 
-            var email =result[0].email
-            var userres = await usersUseCases.checkemail({email}, usersRepository)
+//             var email =result[0].email
+//             var userres = await usersUseCases.checkemail({email}, usersRepository)
 
-            const token = jwt.sign({ userres }, jwtKey, {
-                algorithm: "HS256",
-                expiresIn: jwtExpirySeconds,
-            })
-            console.log("token:", token)
-            return res.status(200).json({
-                status: 200,
-                message: 'You are successfully logged in..!',
-                token: { "token": token }
-            })
+//             const token = jwt.sign({ userres }, jwtKey, {
+//                 algorithm: "HS256",
+//                 expiresIn: jwtExpirySeconds,
+//             })
+//             console.log("token:", token)
+//             return res.status(200).json({
+//                 status: 200,
+//                 message: 'You are successfully logged in..!',
+//                 token: { "token": token }
+//             })
     
-    } else {
-        return res.status(201).json({ status: 201, message: 'OTP is Expired.!' })
+//     } else {
+//         return res.status(201).json({ status: 201, message: 'OTP is Expired.!' })
     
-    }
-        }else{
-            res.status(202).json({
-                status: 202,
-                message: "Plese enter valid otp",
-            });
+//     }
+//         }else{
+//             res.status(202).json({
+//                 status: 202,
+//                 message: "Plese enter valid otp",
+//             });
 
-        }
+//         }
 
-} catch (err) {
-    res.status(500).json({
-        status: "500",
-        message: "Internal Server Error",
-        error: err.message
-    });
-}
-})
+// } catch (err) {
+//     res.status(500).json({
+//         status: "500",
+//         message: "Internal Server Error",
+//         error: err.message
+//     });
+// }
+// })
 
 router.post('/signup', async (req, res) => {
 
@@ -161,35 +161,7 @@ router.post('/signup', async (req, res) => {
     const { name, mobile, email,password } = req.body
     var dt = moment().format()
 
-    try{
-
-        // const transporter = nodemailer.createTransport({
-            
-        //         host: "smtp.gmail.com",
-        //         port: 587,
-        //         secure: false,
-        //         auth: {
-        //             user: 'kalyanmetalok@gmail.com',
-        //             pass: 'mkmvhzrhyiofifoa'
-        //         }
-            
-        // });
-        // transporter.sendMail({
-        //     from: 'kalyanmetalok@gmail.com',
-        //     to: email, 
-        //     cc: 'vamshijustin25@gmail.com',
-        //     subject: `Hello this is testing purpose mail`, 
-        //     text: "Your Registration successfully Completed..!"
-        // }).then(result => {
-           
-        // }).catch(err => {
-        //     console.log(err);
-        //     return res.status(400).json({
-        //         code: "error",
-        //         message: err
-        //     })
-        // })
-    
+    try{    
 
         var checkemail = await usersUseCases.checkemail({email}, usersRepository)
         if (checkemail.length > 0) {
@@ -213,7 +185,7 @@ console.log('first',_.isObject(result))
                from: 'kalyanmetalok@gmail.com',
                to: email, 
                cc: '',
-               subject: `Hello this is testing purpose mail`, 
+               subject: `Login Credentials`, 
                text: "Dear User, Your login credentials Uesr Name : "+email+" and You'r Password : " + password + "  "
            }).then(result => {
               
@@ -246,4 +218,71 @@ console.log('first',_.isObject(result))
     });
 }
 })
+
+
+router.get('/signin', async (req, res) => {
+    var {email,password} = req.body
+
+    try{
+     
+        var result = await usersUseCases.signin({email,password}, usersRepository)
+        console.log('first',result)
+        if (result.length > 0) {
+        
+            // const transporter = nodemailer.createTransport({
+            //     host: "smtp.gmail.com",
+            // port: 587,
+            // secure: false,
+            // auth: {
+            //     user: 'kalyanmetalok@gmail.com',
+            //     pass: 'mkmvhzrhyiofifoa'
+            // }
+            // });
+            // transporter.sendMail({
+            //     from: 'kalyanmetalok@gmail.com',
+            //     to: email, 
+            //     cc: 'kalyanwd25@gmail.com',
+            //     subject: `Hello this is testing purpose mail`, 
+            //     text: "You are successfully logged in..!"
+            // }).then(result => {
+            // }).catch(err => {
+            //     console.log(err);
+            //     return res.status(400).json({
+            //         code: "error",
+            //         message: err
+            //     })
+            // })
+        
+            const token = jwt.sign({ result }, jwtKey, {
+                algorithm: "HS256",
+                expiresIn: jwtExpirySeconds,
+            })
+            console.log("kalyan..:", token)
+            return res.status(200).json({
+                status: 200,
+                message: 'You are successfully logged in..!',
+                result:result,
+                token: token,
+
+            })
+    
+ }else{
+            res.status(202).json({
+                status: 202,
+                message: "Plese enter valid details",
+            });
+
+        }
+
+} catch (err) {
+    res.status(500).json({
+        status: "500",
+        message: "Internal Server Error",
+        error: err.message
+    });
+}
+})
+
+
+
 module.exports = router

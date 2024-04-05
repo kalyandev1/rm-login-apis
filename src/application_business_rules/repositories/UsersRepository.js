@@ -12,4 +12,7 @@ module.exports = class{
     signupdata(Entity){
         return this.repository.signupdata(Entity)
     }
+    signindata(Entity){
+        return this.repository.signindata(Entity)
+    }
 }

@@ -33,5 +33,14 @@ module.exports = class {
             return await this.model.create({ name, mobile, email, password,created_date }, { raw: true })
         }
     }
+    async signindata(Entity) {
+        const err = []
+        const { email, password } = Entity
+        if (_.isUndefined(email) || _.isNull(email)) err.push("email is required in field 'email'")
+        if (err.length > 0) return err
+        else {
+            return await this.model.findAll({ where: { email,password} })
+        }
+    }
 }
 

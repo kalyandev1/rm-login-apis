@@ -12,5 +12,8 @@ module.exports = class {
     signup(Entity, Repository) { 
         return Repository.signupdata(Entity)
     }
+    signin(Entity, Repository) { 
+        return Repository.signindata(Entity)
+    }
     
 }
