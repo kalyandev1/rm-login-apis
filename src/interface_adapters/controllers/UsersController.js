@@ -220,7 +220,7 @@ console.log('first',_.isObject(result))
 })
 
 
-router.get('/signin', async (req, res) => {
+router.post('/signin', async (req, res) => {
     var {email,password} = req.body
 
     try{
