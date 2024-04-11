@@ -2,8 +2,8 @@
 const express = require("express");
 const app = express();
 const router = require('express').Router()
-// const http = require('http')
-const https = require('https')
+const http = require('http')
+// const https = require('https')
 
 const server = require('./src/frameworks_drivers/server/server')
 const sequelize = require('./src/frameworks_drivers/database/sequelize')
@@ -13,16 +13,16 @@ const port = process.env.PORT || 3001
 
 
 
-// let myserver = http.Server(server);
+let myserver = http.Server(server);
 
 app.use(cors('*'));
 
 var options = {
-    key: fs.readFileSync('./certificates/evaidya.com.key'),
-    cert: fs.readFileSync('./certificates/evaidya2024.crt.crt'),
+    key: fs.readFileSync('./certificates/server.key'),
+    cert: fs.readFileSync('./certificates/servercrt.crt'),
 };
 
-let myserver = https.Server(options, server);
+// let myserver = https.Server(options, server);
 try {
     ("step1")
    
