@@ -13,13 +13,13 @@ const port = process.env.PORT || 3001
 
 
 
-// let myserver = https.Server(server);
+// let myserver = http.Server(server);
 
 app.use(cors('*'));
 
 var options = {
-    key: fs.readFileSync('./certificates/server.key'),
-    cert: fs.readFileSync('./certificates/servercrt.crt'),
+    key: fs.readFileSync('./certificates/evaidya.com.key'),
+    cert: fs.readFileSync('./certificates/evaidya2024.crt.crt'),
 };
 
 let myserver = https.Server(options, server);
