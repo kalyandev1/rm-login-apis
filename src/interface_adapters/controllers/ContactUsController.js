@@ -179,8 +179,7 @@ var transporter = nodemailer.createTransport(
 );
 var options = {
     from: 'kalyanmetalok@gmail.com',
-    to: 'mihir@metalok.io, kalyan@metalok.io',
-    // to: 'kalyan@metalok.io',
+    to: 'kalyan@metalok.io',
     subject: "Hello this is Testing purpose mail",
     html: `<h2>Hello,</h2>
     <h2>A New form has been submitted on your website. Details below.</h1>
