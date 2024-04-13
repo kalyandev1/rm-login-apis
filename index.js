@@ -17,7 +17,7 @@ app.use(cors('*'));
 
 var options = {
     key: fs.readFileSync('./certificates/privatekey.key'),
-    cert: fs.readFileSync('./certificates/certificate.crt.crt'),
+    cert: fs.readFileSync('./certificates/certificate.crt.crt')
 };
   
     // key: fs.readFileSync('./certificates/server.key'),
