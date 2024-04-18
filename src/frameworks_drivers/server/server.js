@@ -1,15 +1,9 @@
 const express = require('express')
 const app = express()
-
  const usersRoutes = require('../../interface_adapters/controllers/UsersController');
- const otpRoutes = require('../../interface_adapters/controllers/OtpController');
  const contactusRoutes = require('../../interface_adapters/controllers/ContactUsController');
-
-
-
 app.use(express.urlencoded({ limit: '50mb', extended: false }))
 app.use(express.json())
-
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
@@ -18,17 +12,11 @@ app.use((req, res, next) => {
     );
     if (req.method === "OPTIONS") {
         res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-        return res.status(200).json({});
-    }
+        return res.status(200).json({});}
     next();
 });
-
-
 app.use('/api/v1/user',usersRoutes);
-app.use('/api/v1/otp',otpRoutes);
 app.use('/api/v1/contactus',contactusRoutes);
-
-
 app.use((req, res, next) => {
     const error = new Error("Not found");
     error.status = 404;

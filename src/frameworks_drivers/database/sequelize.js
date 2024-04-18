@@ -1,7 +1,6 @@
 const Sequelize = require("sequelize");
 
 const usersModel = require("./models/Users");
-const otpModel = require("./models/Otp");
 const contactusModel = require("./models/ContactUs");
 
 const sequelize = new Sequelize("rm-p", "admin", "12345678", {
@@ -22,6 +21,5 @@ const sequelize = new Sequelize("rm-p", "admin", "12345678", {
 });
 
 const Users = usersModel(sequelize, Sequelize);
-const Otp = otpModel(sequelize, Sequelize);
 const contactus = contactusModel(sequelize, Sequelize);
 module.exports = sequelize;

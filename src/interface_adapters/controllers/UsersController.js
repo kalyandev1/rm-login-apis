@@ -3,12 +3,6 @@ const _ = require('lodash')
 const moment = require('moment');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken')
-const OtpUseCases = require('../../application_business_rules/use_cases/OtpUseCases')
-const OtpRepositoryMySql = require('../storage/OtpRepositoryMySql')
-const OtpRepository = require('../../application_business_rules/repositories/OtpRepository')
-
-const otpRepository = new OtpRepository(new OtpRepositoryMySql())
-const otpUseCases = new OtpUseCases()
 
 const UsersUseCases = require('../../application_business_rules/use_cases/UsersUseCases')
 const UsersRepositoryMySql = require('../storage/UsersRepositoryMySql')
@@ -97,9 +91,6 @@ router.post('/signup', async (req, res) => {
     })
     }else{
 
-//         const result = await usersUseCases.signup({name, mobile, email,password,created_date:dt}, usersRepository)
-// console.log('first',_.isObject(result))
-//         if (_.isObject(result)){
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 587,
@@ -133,13 +124,7 @@ router.post('/signup', async (req, res) => {
                })
            })
 
-        //   }  else {
-               
-
-               
-        //    return res.status(203).json({ status: 203, message: 'something went wrong..!'})
-               
-        //        }
+       
     }
      
 

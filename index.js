@@ -2,7 +2,6 @@
 const express = require("express");
 const app = express();
 const router = require('express').Router()
-// const http = require('http')
 const https = require('https')
 
 const server = require('./src/frameworks_drivers/server/server')
@@ -10,8 +9,6 @@ const sequelize = require('./src/frameworks_drivers/database/sequelize')
 const cors = require("cors");
 let fs = require('fs');
 const port = process.env.PORT || 3001
-
-// let myserver = http.Server(server);
 
 app.use(cors('*'));
 

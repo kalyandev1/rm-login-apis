@@ -1,20 +1,14 @@
 const router = require('express').Router()
 const _ = require('lodash')
 const moment = require('moment');
-// const nodemailer = require('nodemailer');
 var nodemailer = require('nodemailer');
-
 const jwt = require('jsonwebtoken')
-
-
 const ContactUsUseCases = require('../../application_business_rules/use_cases/ContactUsUseCases')
 const ContactUsRepositoryMySql = require('../storage/ContactUsRepositoryMySql')
 const ContactUsRepository = require('../../application_business_rules/repositories/ContactUsRepository')
 
 const contactRepository = new ContactUsRepository(new ContactUsRepositoryMySql())
 const contactUseCases = new ContactUsUseCases()
-
-
 
 
 router.post('/addcontacts', async (req, res) => {
@@ -25,15 +19,12 @@ router.post('/addcontacts', async (req, res) => {
     
 const result = await contactUseCases.add({mobile,email,message,created_date:dt}, contactRepository)
 
-
 var transporter = nodemailer.createTransport(
     {
-        host: "smtp.gmail.com",
-        port: 587,
         secure: false,
         auth: {
-            user: 'kalyanmetalok@gmail.com',
-            pass: 'mkmvhzrhyiofifoa'
+            user: '',
+            pass: ''
         }
     }
 );
@@ -53,7 +44,7 @@ transporter.sendMail(
             console.log(error)
         }
         else { 
-            // console.log("kalyan...",info)
+            
         }
 
     }
