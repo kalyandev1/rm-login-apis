@@ -81,79 +81,7 @@ router.post('/requestotp', async (req, res) => {
 }
 })
 
-// router.get('/userotplogin/:otp', async (req, res) => {
-//     const {otp} = req.params
 
-//     try{
-//         const result = await otpUseCases.otpcheck(otp, otpRepository)
-  
-//         if (result.length > 0) {
-    
-//         const givenTimestamp = result[0].created_date;
-     
-//         const currentTime = moment();
-        
-//         const differenceInMinutes = currentTime.diff(givenTimestamp, 'minutes');
-    
-//         if (differenceInMinutes <= 10) {
-        
-//             const transporter = nodemailer.createTransport({
-//                 service: 'gmail',
-//                 secure: false,
-//                 auth: {
-//                     user: 'kalyanmetalok@gmail.com',
-//                     pass: 'ehealthaccess',
-//                 },
-//             });
-//             transporter.sendMail({
-//                 from: 'kalyanmetalok@gmail.com',
-//                 to: result[0].email, 
-//                 cc: 'kalyanwd25@gmail.com',
-//                 subject: `Hello this is testing purpose mail`, 
-//                 text: "You are successfully logged in..!"
-//             }).then(result => {
-//             }).catch(err => {
-//                 console.log(err);
-//                 return res.status(400).json({
-//                     code: "error",
-//                     message: err
-//                 })
-//             })
-
-//             var email =result[0].email
-//             var userres = await usersUseCases.checkemail({email}, usersRepository)
-
-//             const token = jwt.sign({ userres }, jwtKey, {
-//                 algorithm: "HS256",
-//                 expiresIn: jwtExpirySeconds,
-//             })
-//             console.log("token:", token)
-//             return res.status(200).json({
-//                 status: 200,
-//                 message: 'You are successfully logged in..!',
-//                 token: { "token": token }
-//             })
-    
-//     } else {
-//         return res.status(201).json({ status: 201, message: 'OTP is Expired.!' })
-    
-//     }
-//         }else{
-//             res.status(202).json({
-//                 status: 202,
-//                 message: "Plese enter valid otp",
-//             });
-
-//         }
-
-// } catch (err) {
-//     res.status(500).json({
-//         status: "500",
-//         message: "Internal Server Error",
-//         error: err.message
-//     });
-// }
-// })
 
 router.post('/signup', async (req, res) => {
 
@@ -169,9 +97,9 @@ router.post('/signup', async (req, res) => {
     })
     }else{
 
-        const result = await usersUseCases.signup({name, mobile, email,password,created_date:dt}, usersRepository)
-console.log('first',_.isObject(result))
-        if (_.isObject(result)){
+//         const result = await usersUseCases.signup({name, mobile, email,password,created_date:dt}, usersRepository)
+// console.log('first',_.isObject(result))
+//         if (_.isObject(result)){
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 587,
@@ -186,9 +114,17 @@ console.log('first',_.isObject(result))
                to: email, 
                cc: '',
                subject: `Login Credentials`, 
-               text: "Dear User, Your login credentials Uesr Name : "+email+" and You'r Password : " + password + "  "
-           }).then(result => {
-              
+               text: "Dear User, Your login credentials Uesr Name is : "+email+" and You'r Password is : " + password + "Metalok pvt ltd"
+           }).then(async (result)=> {
+      
+        const result1 = await usersUseCases.signup({name, mobile, email,password,created_date:dt}, usersRepository)
+        if (_.isObject(result1)){
+        return  res.status(200).json({ status:200, message: 'Your Registration successfully Completed..!'})
+
+        }else{
+            return  res.status(201).json({ status:201, message: 'Your Registration faild..!'})
+
+        }
            }).catch(err => {
                console.log(err);
                return res.status(400).json({
@@ -196,15 +132,14 @@ console.log('first',_.isObject(result))
                    message: err
                })
            })
-         res.status(200).json({ status:200, message: 'Your Registration successfully Completed..!'})
 
-          }  else {
+        //   }  else {
                
 
                
-           return res.status(203).json({ status: 203, message: 'something went wrong..!'})
+        //    return res.status(203).json({ status: 203, message: 'something went wrong..!'})
                
-               }
+        //        }
     }
      
 
@@ -228,30 +163,6 @@ router.post('/signin', async (req, res) => {
         var result = await usersUseCases.signin({email,password}, usersRepository)
         console.log('first',result)
         if (result.length > 0) {
-        
-            // const transporter = nodemailer.createTransport({
-            //     host: "smtp.gmail.com",
-            // port: 587,
-            // secure: false,
-            // auth: {
-            //     user: 'kalyanmetalok@gmail.com',
-            //     pass: 'mkmvhzrhyiofifoa'
-            // }
-            // });
-            // transporter.sendMail({
-            //     from: 'kalyanmetalok@gmail.com',
-            //     to: email, 
-            //     cc: 'kalyanwd25@gmail.com',
-            //     subject: `Hello this is testing purpose mail`, 
-            //     text: "You are successfully logged in..!"
-            // }).then(result => {
-            // }).catch(err => {
-            //     console.log(err);
-            //     return res.status(400).json({
-            //         code: "error",
-            //         message: err
-            //     })
-            // })
         
             const token = jwt.sign({ result }, jwtKey, {
                 algorithm: "HS256",

@@ -20,8 +20,6 @@ var options = {
     cert: fs.readFileSync('./certificates/certificate.crt.crt')
 };
   
-    // key: fs.readFileSync('./certificates/server.key'),
-    // cert: fs.readFileSync('./certificates/servercrt.crt'),  
 let myserver = https.Server(options, server);
 try {
     ("step1")
