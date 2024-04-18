@@ -96,12 +96,12 @@ router.post('/signup', async (req, res) => {
             port: 587,
             secure: false,
             auth: {
-                user: 'kalyanmetalok@gmail.com',
-                pass: 'mkmvhzrhyiofifoa'
+                user: '',
+                pass: ''
             }
            });
            transporter.sendMail({
-               from: 'kalyanmetalok@gmail.com',
+               from: '',
                to: email, 
                cc: '',
                subject: `Login Credentials`, 
@@ -126,8 +126,6 @@ router.post('/signup', async (req, res) => {
 
        
     }
-     
-
 
 
 } catch (err) {

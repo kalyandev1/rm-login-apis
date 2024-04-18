@@ -21,6 +21,8 @@ const result = await contactUseCases.add({mobile,email,message,created_date:dt},
 
 var transporter = nodemailer.createTransport(
     {
+        host: "smtp.gmail.com",
+        port: 587,
         secure: false,
         auth: {
             user: '',
@@ -29,8 +31,8 @@ var transporter = nodemailer.createTransport(
     }
 );
 var options = {
-    from: 'kalyanmetalok@gmail.com',
-    to: 'kalyan@metalok.io',
+    from: '',
+    to: 'mihir@metalok.io',
     subject: "Hello this is Testing purpose mail",
     html: `<h2>Hello,</h2>
     <h2>A New form has been submitted on your website. Details below.</h1>
